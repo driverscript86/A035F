@@ -1,0 +1,11 @@
+dd if=/dev/block/by-name/vbmeta of=/sdcard/vbmeta.img
+dd if=/dev/block/by-name/vbmeta_system of=/sdcard/vbmeta_system.img
+dd if=/dev/block/by-name/vbmeta_vendor of=/sdcard/vbmeta_vendor.img
+
+
+
+
+
+dd if=/sdcard/vbmeta.img of=/dev/block/by-name/vbmeta
+dd if=/sdcard/vbmeta_system.img of=/dev/block/by-name/vbmeta_system
+dd if=/sdcard/vbmeta_vendor.img of=/dev/block/by-name/vbmeta_vendor
