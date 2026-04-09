@@ -2,10 +2,30 @@ dd if=/dev/block/by-name/vbmeta of=/sdcard/vbmeta.img
 dd if=/dev/block/by-name/vbmeta_system of=/sdcard/vbmeta_system.img
 dd if=/dev/block/by-name/vbmeta_vendor of=/sdcard/vbmeta_vendor.img
 
+cp /sdcard/vbmeta.img /sdcard/pot/vbmeta_backup.img
+cp /sdcard/vbmeta_system.img /sdcard/pot/vbmeta_system_backup.img
+cp /sdcard/vbmeta_vendor.img /sdcard/pot/vbmeta_vendor_backup.img
 
+python ~/avb/avbtool.py erase_footer --image /sdcard/vbmeta.img
+python ~/avb/avbtool.py erase_footer --image /sdcard/vbmeta_system.img
+python ~/avb/avbtool.py erase_footer --image /sdcard/vbmeta_vendor.img
 
+python ~/avb/avbtool.py add_hash_footer \
+--image /sdcard/vbmeta.img \
+--disable-verity \
+--disable-verification
 
+python ~/avb/avbtool.py add_hash_footer \
+--image /sdcard/vbmeta_system.img \
+--disable-verity \
+--disable-verification
+
+python ~/avb/avbtool.py add_hash_footer \
+--image /sdcard/vbmeta_vendor.img \
+--disable-verity \
+--disable-verification
 
 dd if=/sdcard/vbmeta.img of=/dev/block/by-name/vbmeta
 dd if=/sdcard/vbmeta_system.img of=/dev/block/by-name/vbmeta_system
 dd if=/sdcard/vbmeta_vendor.img of=/dev/block/by-name/vbmeta_vendor
+
